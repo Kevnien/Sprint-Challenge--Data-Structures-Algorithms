@@ -44,3 +44,28 @@ class BinarySearchTree:
         max_value = current.value
       current = current.right
     return max_value
+
+  def depth_first_for_each(self, cb):
+    stack = []
+    stack.append({'tree':self,'left_bad':True,'right_bad':True})
+    cb(stack[len(stack)-1]['tree'].value)
+    while(len(stack)>0):
+      if stack[len(stack)-1]['left_bad']:
+        next = stack[len(stack)-1]['tree'].left
+        if next == None:
+          stack[len(stack)-1]['left_bad'] = False
+          continue
+        stack[len(stack)-1]['left_bad'] = False
+        stack.append({'tree':next,'left_bad':True,'right_bad':True})
+        cb(stack[len(stack)-1]['tree'].value)
+      elif stack[len(stack)-1]['right_bad']:
+        next = stack[len(stack)-1]['tree'].right
+        if next == None:
+          stack[len(stack)-1]['right_bad'] = False
+          continue
+        stack[len(stack)-1]['right_bad'] = False
+        stack.append({'tree':next,'left_bad':True,'right_bad':True})
+        cb(stack[len(stack)-1]['tree'].value)
+      else:
+        stack.pop()
+      
