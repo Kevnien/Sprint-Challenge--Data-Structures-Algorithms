@@ -68,4 +68,14 @@ class BinarySearchTree:
         cb(stack[len(stack)-1]['tree'].value)
       else:
         stack.pop()
+
+  def breadth_first_for_each(self, cb):
+    queue = []
+    queue.append(self)
+    while len(queue) > 0:
+      if queue[0].left != None:
+        queue.append(queue[0].left)
+      if queue[0].right != None:
+        queue.append(queue[0].right)
+      cb(queue.pop(0).value)
       
